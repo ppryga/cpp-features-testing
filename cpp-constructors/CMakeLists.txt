@@ -6,7 +6,8 @@ enable_testing()
 
 add_executable(cpp-constructors src/main.cpp
         src/no-throw-constructor.cpp
-        src/throwing-constuctor.cpp)
+        src/throwing-constuctor.cpp
+        src/set-result-flag-constructor.cpp)
 
 target_include_directories(cpp-constructors PUBLIC src)
 
