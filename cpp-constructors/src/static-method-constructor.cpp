@@ -6,15 +6,44 @@ std::optional<BaseStaticCreate> BaseStaticCreate::GetInstance(int A, bool FailCo
         if (FailConstruction == true) {
                 return std::nullopt;
         } else {
-                return BaseStaticCreate{A};
+                return std::move(BaseStaticCreate{A});
         }
 }
 
-BaseStaticCreate::BaseStaticCreate(int A) : m_a(A) { }
+BaseStaticCreate::BaseStaticCreate(int A) : m_a(A)
+{
+        std::cout << "regular constructor" << std::endl;
+}
+
+BaseStaticCreate::~BaseStaticCreate()
+{
+        std::cout << "destructor" << std::endl;
+}
 
 int BaseStaticCreate::GetA() const
 {
         return m_a;
+}
+
+BaseStaticCreate::BaseStaticCreate(const BaseStaticCreate&)
+{
+        std::cout << "copy constructor" << std::endl;
+}
+
+BaseStaticCreate::BaseStaticCreate(BaseStaticCreate&& other)
+{
+        std::cout << "move constructor" << std::endl;
+        this->m_a = other.m_a;
+        other.m_a = 0xFF;
+}
+
+BaseStaticCreate& BaseStaticCreate::operator=(BaseStaticCreate&& other)
+{
+        std::cout << "move assignment" << std::endl;
+
+        this->m_a = other.m_a;
+
+        return *this;
 }
 
 void test_construction_base_static_create()

@@ -19,7 +19,11 @@ protected:
 public:
         BaseStaticCreate() = default;
         explicit BaseStaticCreate(int a);
+        BaseStaticCreate(const BaseStaticCreate&);
+        BaseStaticCreate(BaseStaticCreate&&);
+        BaseStaticCreate& operator=(BaseStaticCreate&& other);
 
+        ~BaseStaticCreate();
 public:
         static std::optional<BaseStaticCreate> GetInstance(int A, bool failConstruction = false);
 
